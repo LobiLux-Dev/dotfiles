@@ -1,181 +1,47 @@
-include /home/lobilux/.config/sway/i3/themes/catppuccin-mocha
-
-# Basic Settings
+# ------------ Vars ------------
+# Keys
 set $mod Mod4
+
+# Apps
 set $browser brave
 set $terminal kitty
 set $fileManager thunar
 set $menu wofi --show drun
 
-# Visual
+# Paths
+set $dotfiles $HOME/.config
+set $scripts $dotfiles/scripts
+set $wallpapers $dotfiles/.images/wallpapers
+
+# ------------ Imports ------------
+include $dotfiles/sway/i3/themes/catppuccin-mocha
+include /etc/sway/config.d/*
+
+# ------------ Monitors ------------
+output eDP-1 pos 0    1020 res 1600x900  bg $wallpapers/wallpaper-1.jpg fill
+output DP-2  pos 1600 0    res 1920x1080 bg $wallpapers/wallpaper-2.jpg fill transform 270
+output DP-1  pos 2680 380  res 1920x1080 bg $wallpapers/wallpaper-3.jpg fill
+
+focus output DP-1
+
+workspace 1 output eDP-1
+workspace 2 output DP-2
+workspace 3 output DP-1
+
+# ------------ Startup apps ------------
+exec waybar
+exec discord
+exec spotify
+exec $browser
+exec nm-applet
+exec blueman-applet
+
+# ------------ Visual ------------
 gaps inner 8
 
 default_border pixel 2
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/Wallpapers/wallpaper.jpg fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-
-# Bindings
-bindsym $mod+w kill
-bindsym $mod+Shift+c reload
-bindsym $mod+b exec $browser
-bindsym Alt+space exec $menu
-bindsym $mod+e exec $fileManager
-bindsym $mod+Return exec $terminal
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
-
-bindsym XF86AudioLowerVolume exec $HOME/.config/scripts/notify.fish volume dec
-bindsym XF86AudioRaiseVolume exec $HOME/.config/scripts/notify.fish volume inc
-bindsym XF86AudioMute exec $HOME/.config/scripts/notify.fish volume mute
-
-bindsym XF86AudioMicMute exec $HOME/.config/scripts/notify.fish mic
-
-bindsym XF86MonBrightnessUp exec $HOME/.config/scripts/notify.fish brightness inc
-bindsym XF86MonBrightnessDown exec $HOME/.config/scripts/notify.fish brightness dec
-
-floating_modifier $mod normal
-
-exec waybar
-
-# #
-# # Layout stuff:
-# #
-#     # You can "split" the current object of your focus with
-#     # $mod+b or $mod+v, for horizontal and vertical splits
-#     # respectively.
-#     bindsym $mod+b splith
-#     bindsym $mod+v splitv
-
-#     # Switch the current container between different layout styles
-#     bindsym $mod+s layout stacking
-#     bindsym $mod+w layout tabbed
-#     bindsym $mod+e layout toggle split
-
-#     # Make the current focus fullscreen
-#     bindsym $mod+f fullscreen
-
-#     # Toggle the current focus between tiling and floating mode
-#     bindsym $mod+Shift+space floating toggle
-
-#     # Swap focus between the tiling area and the floating area
-#     bindsym $mod+space focus mode_toggle
-
-#     # Move focus to the parent container
-#     bindsym $mod+a focus parent
-# #
-# # Scratchpad:
-# #
-#     # Sway has a "scratchpad", which is a bag of holding for windows.
-#     # You can send windows there and get them back later.
-
-#     # Move the currently focused window to the scratchpad
-#     bindsym $mod+Shift+minus move scratchpad
-
-#     # Show the next scratchpad window or hide the focused scratchpad window.
-#     # If there are multiple scratchpad windows, this command cycles through them.
-#     bindsym $mod+minus scratchpad show
-# #
-# # Resizing containers:
-# #
-# mode "resize" {
-#     # left will shrink the containers width
-#     # right will grow the containers width
-#     # up will shrink the containers height
-#     # down will grow the containers height
-#     bindsym Left resize shrink width 10px
-#     bindsym Down resize grow height 10px
-#     bindsym Up resize shrink height 10px
-#     bindsym Right resize grow width 10px
-
-#     # Return to default mode
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-# }
-# bindsym $mod+r mode "resize"
-
-# bar {
-# 	gaps 8
-#   position top
-#   status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-
-#   colors {
-#     background         $base
-#     statusline         $text
-#     focused_statusline $text
-#     focused_separator  $base
-
-#     # target           border bg        text
-#     focused_workspace  $base  $mauve    $crust
-#     active_workspace   $base  $surface2 $text
-#     inactive_workspace $base  $base     $text
-#     urgent_workspace   $base  $red      $crust
-#   }
-# }
+seat seat0 xcursor_theme catppuccin-mocha-dark-cursors
 
 # target                 title     bg    text   indicator  border
 client.focused           $lavender $base $text  $rosewater $lavender
@@ -185,4 +51,126 @@ client.urgent            $peach    $base $peach $overlay0  $peach
 client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
 client.background        $base
 
-include /etc/sway/config.d/*
+
+# ------------ Window Rules ------------
+assign [class="discord"] workspace 1
+assign [class="Spotify"] workspace 2
+assign [class="Brave-browser"] workspace 3
+assign [class="Code"] workspace 4
+assign [class="Docker Desktop"] workspace 5
+
+for_window [app_id="kitty"] floating enable
+for_window [app_id="thunar"] floating enable
+for_window [app_id="nwg-look"] floating enable
+for_window [app_id="blueman-manager"] floating enable
+for_window [app_id="minecraft-launcher"] floating enable
+for_window [instance="minecraft-launcher"] floating enable
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+for_window [instance="crx_nngceckbapebfimnlniiiahkandclblb"] floating enable
+
+# ------------ Modes ------------
+mode "resize" {
+  bindsym Left resize grow width 10px
+  bindsym Down resize shrink height 10px
+  bindsym Up resize grow height 10px
+  bindsym Right resize shrink width 10px
+
+  # Return to default mode
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+# ------------ Inputs ------------
+# Touchpad
+input "type:touchpad" {
+  dwt enabled
+  tap enabled
+  natural_scroll enabled
+  middle_emulation enabled
+}
+
+input "type:keyboard" {
+  xkb_layout us,es
+  xkb_options grp:win_space_toggle
+}
+
+# ------------ Idle ------------
+exec swayidle -w  \
+         timeout 900 '[ "$(playerctl -l | wc -l)" -eq 1 ] && [ "$(playerctl -l)" = "spotify" ] && swaylock' \
+         timeout 7200 'if [ "$(playerctl status)" != "Playing" ]; then systemctl suspend; fi' \
+         before-sleep swaylock
+
+# ------------ Bindings ------------
+# Basic
+bindsym $mod+w kill
+bindsym $mod+Shift+r reload
+bindsym $mod+b exec $browser
+bindsym Alt+space exec $menu
+bindsym $mod+L exec swaylock
+bindsym $mod+e exec $fileManager
+bindsym $mod+Return exec $terminal
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+# Focus window
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Move workspace
+bindsym $mod+Control+Shift+Right move workspace to output right
+bindsym $mod+Control+Shift+Left move workspace to output left
+bindsym $mod+Control+Shift+Down move workspace to output down
+bindsym $mod+Control+Shift+Up move workspace to output up
+
+# Switch workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Move active window to a workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Layout
+bindsym $mod+o layout toggle split
+bindsym $mod+f floating toggle
+
+# Modes
+bindsym $mod+r mode "resize"
+
+# Move/resize windows
+floating_modifier $mod normal
+
+# Volume
+bindsym XF86AudioLowerVolume exec $scripts/notify.fish volume dec
+bindsym XF86AudioRaiseVolume exec $scripts/notify.fish volume inc
+bindsym XF86AudioMute exec $scripts/notify.fish volume mute
+
+# Microphone
+bindsym XF86AudioMicMute exec $scripts/notify.fish mic
+
+# Brightness
+bindsym XF86MonBrightnessUp exec $scripts/notify.fish brightness inc
+bindsym XF86MonBrightnessDown exec $scripts/notify.fish brightness dec
