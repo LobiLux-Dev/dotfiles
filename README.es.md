@@ -6,6 +6,7 @@
 - eza
 - git
 - btop
+- fish
 - gvfs
 - sddm
 - sway
@@ -47,8 +48,8 @@ makepkg -si
 
 - cava
 - spotify
+- brave-bin
 - wdisplays
-- brave-browser
 - swaylock-effects
 - visual-studio-code-bin
 - catppuccin-cursors-mocha
