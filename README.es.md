@@ -10,6 +10,8 @@
 - gvfs
 - sddm
 - sway
+- vlc
+- mesa
 - wofi
 - bluez
 - dunst
@@ -21,6 +23,7 @@
 - thunar
 - waybar
 - blueman
+- ddcutil
 - discord
 - openssh
 - ntfs-3g
@@ -29,12 +32,17 @@
 - swayidle
 - fastfetch
 - base-devel
+- mesa-demos
+- mesa-utils
 - pavucontrol
 - breeze-icons
 - brightnessctl
 - xdg-user-dirs
 - xorg-xwayland
+- xf86-video-ati
+- xf86-video-intel
 - ttf-firacode-nerd
+- power-profiles-daemon
 - thunar-archive-plugin
 - network-manager-applet
 
@@ -50,6 +58,9 @@ makepkg -si
 - spotify
 - brave-bin
 - wdisplays
+- ttf-poppins
+- waybar-updates
+- sddm-sugar-dark
 - swaylock-effects
 - visual-studio-code-bin
 - catppuccin-cursors-mocha
@@ -62,6 +73,16 @@ Genera y gestiona los directorios de usuario (Downloads, Pictures, etc...)
 xdg-user-dirs-update
 ```
 
+Descargamos la base de datos del extra repository (mesa-utils)
+```bash
+sudo pacman -Fy
+```
+
+Cargamos el modulo para controlar monitores externos
+```bash
+sudo modprobe i2c-dev
+```
+
 Habilitar el desktop manager
 ```bash
 sudo systemctl enable sddm.service
@@ -70,4 +91,9 @@ sudo systemctl enable sddm.service
 Habilitar el servicio de bluetooth
 ```bash
 sudo systemctl enable bluetooth.service
+```
+
+Habilitar el servicio manejo de perfiles de energía
+```bash
+sudo systemctl enable power-profiles-daemon.service
 ```

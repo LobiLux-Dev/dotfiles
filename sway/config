@@ -37,14 +37,14 @@ exec nm-applet
 exec blueman-applet
 
 # ------------ Visual ------------
-gaps inner 8
+gaps inner 5
 
 default_border pixel 2
 
 seat seat0 xcursor_theme catppuccin-mocha-dark-cursors
 
 # target                 title     bg    text   indicator  border
-client.focused           $lavender $base $text  $rosewater $lavender
+client.focused           $lavender $base $text  $rosewater $blue
 client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
 client.unfocused         $overlay0 $base $text  $rosewater $overlay0
 client.urgent            $peach    $base $peach $overlay0  $peach
