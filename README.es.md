@@ -32,8 +32,6 @@
 - swayidle
 - fastfetch
 - base-devel
-- mesa-demos
-- mesa-utils
 - pavucontrol
 - breeze-icons
 - brightnessctl
